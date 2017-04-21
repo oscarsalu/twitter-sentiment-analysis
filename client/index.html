@@ -1,0 +1,39 @@
+<!-- MAIN BOILERPLATE -->
+
+<head>
+    <title>Mood Of the masses</title>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="navbar-brand" href="#">Analysis</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        {{> trending}}
+    </div>
+</body>
+
+<!-- TEMPLATES -->
+<template name="trending">
+  <h1>Moods of the Masses</h1>
+  <small>Pulled fresh from Twitter and analyzed for sentiment!</small>
+  {{#each trends}}
+    <hr>
+    <div>
+      <h4>{{name}}</h4>
+      <!-- Only load rest if trends actually have loaded -->
+      {{#if trendtime}}
+        <em>Keywords</em>: {{keywords}}<br/>
+        <em>Sentiment</em>: {{sentiment}}<br/>
+        <em>More from</em>: <a href="{{url}}" target="_blank">Twitter</a> |
+                            <a href="https://duckduckgo.com/?q={{query}}" target="_blank">DuckDuckGo</a><br/>
+      {{/if}}
+    </div>
+  {{/each}}<hr>
+  <small>These trends are fresh as of: {{trendtime}}</small><br/>
+  <small>and will automatically update every 5 minutes</small><br/>
+</template>
