@@ -2,7 +2,7 @@ This repository contains a simple [Meteor-powered](https://the.meteor.com/) web
 application that pulls current trends from the
 [Twitter API](https://dev.twitter.com/) and uses
 [AFINN-based sentiment analysis](https://www.npmjs.org/package/sentiment) on
-the tweets (currently US-only to make language processing a little easier)
+the tweets (currently Kenya-only to make language processing a little easier)
 related to the trend to provide a summary of its sentiment and keywords.
 
     curl https://install.meteor.com/ | sh
