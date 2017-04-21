@@ -6,12 +6,13 @@ the tweets (currently Kenya-only to make language processing a little easier)
 related to the trend to provide a summary of its sentiment and keywords.
 
     curl https://install.meteor.com/ | sh
-    git clone https://github.com/soycode/proles
-    cd proles
+    git clone https://github.com/oscarsalu/twitter-sentiment-analysis.git
+    cd twitter-sentiment-analysis
     touch settings.json
 
 You'll then need to put your Twitter API credentials (read-only permission is
 fine) in the settings.json file as follows:
+
 
     {
       "twitter": {
