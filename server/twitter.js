@@ -37,21 +37,24 @@ getTrends = function() {
                 TrendTime.insert({ last_insert_stamp: Date.parse(trend_data[0].as_of) });
                 console.log('INSERTED: ' + trend_data[0].as_of);
                 // Find tweets about the trend for further (sentiment) analysis
+                // call for getTweets happens
                 for (var i in trend_data[0].trends) {
                     getTweets(i, trend_data)(); // in closure so i actually iterates
+                    //streamTweets(i, trend_data)();
                 }
             })
         );
     };
 }();
-streamTweets = function() {
+streamTweets = function(i, trend_data) {
     return function() {
-        console.log('Streaming Tweets');
-        Twit.stream(
-            //want to stream the world for tweets containing political words from kenya
-            'statuses/filter', { track: 'mango' })
-                stream.on('tweet', function (tweet) {
-                  console.log(tweet)
-                })
+        console.log(trend_data[0].trends[i].name);
+        //stream the world for tweets containing kenyan political persons 
+        Twit.stream('statuses/filter', { track: trend_data[0].trends[i].name }).on('tweet', Meteor.bindEnvironment(function (tweet) { 
+                    //remove previous stream twits
+                    console.log('-->' + tweet[0]);
+                    StreamTw.remove({});
+                    StreamTw.insert({twit: tweet[0]});
+                }));
     }
-}
+};
