@@ -8,13 +8,13 @@ Meteor.startup(function() {
         access_token: "186084029-avVUNVFXim4tTntEDIKySMYSRQNAECGqLS0p5nqF",
         access_token_secret: "QhCnLDA88o2LD8OAEF5fSz2gFstBwtCA5jTODHjQL9Z9k"
     });
-    var stream = Twit.stream('statuses/filter', { track: 'party primaries' })
+    /*var stream = Twit.stream('statuses/filter', { track: 'IEBC' })
     stream.on('tweet', function (tweet) {
         console.log(tweet.text);
         console.log(tweet.user.location);
         console.log(tweet.user.screen_name);
         console.log('------------------------------------------------------------');
-    });
+    });*/
     // Set up MongoDB collections
     Trends = new Meteor.Collection('trends');
     TrendTime = new Meteor.Collection('trendtime');

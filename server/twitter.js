@@ -26,7 +26,7 @@ getTweets = function(i, trend_data) {
 
 getTrends = function() {
     return function() {
-        console.log('getting trends');
+        console.log('getting trends...');
         Twit.get(
             // Place id for Kenya, consider going to 1 for global
             'trends/place', { id: '23424863', exclude: 'hashtags' },
@@ -38,23 +38,33 @@ getTrends = function() {
                 console.log('INSERTED: ' + trend_data[0].as_of);
                 // Find tweets about the trend for further (sentiment) analysis
                 // call for getTweets happens
+                var tags = [];
                 for (var i in trend_data[0].trends) {
                     getTweets(i, trend_data)(); // in closure so i actually iterates
-                    //streamTweets(i, trend_data)();
-                }
+                    streamTweets(trend_data[0].trends[i].name)();
+                    //var big = trend_data[0].trends[i].name;
+                    tags.push(trend_data[0].trends[i].name);
+                    
+                    //console.log(tags);
+
+                };
             })
         );
     };
 }();
-streamTweets = function(i, trend_data) {
+streamTweets = function(nameit) {
     return function() {
-        console.log(trend_data[0].trends[i].name);
-        //stream the world for tweets containing kenyan political persons 
-        Twit.stream('statuses/filter', { track: trend_data[0].trends[i].name }).on('tweet', Meteor.bindEnvironment(function (tweet) { 
+        console.log(nameit);
+        console.log('Streaming Tweet...');
+          //stream the world for tweets containing kenyan political persons
+        Twit.stream('statuses/filter', { track: nameit }).on(
+            'tweet', Meteor.bindEnvironment(function (tweet) {
                     //remove previous stream twits
-                    console.log('-->' + tweet[0]);
+                    // console.log(tweet.text);
+                    // console.log(tweet.user.location);
+                    // console.log(tweet.user.screen_name);
                     StreamTw.remove({});
-                    StreamTw.insert({twit: tweet[0]});
+                    StreamTw.insert({twit: tweet});
                 }));
     }
 };
