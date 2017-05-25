@@ -1,6 +1,6 @@
 Template.trending.helpers({
   'trends': function() {
-    console.log('Viewing trends');
+    console.log('Viewing trends..');
     // First want to check if >5mins so we wait
     var trend_time = TrendTime.findOne();
     if (typeof trend_time === 'undefined' ||
