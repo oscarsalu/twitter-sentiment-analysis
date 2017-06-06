@@ -19,6 +19,12 @@ Meteor.startup(function() {
     Trends = new Meteor.Collection('trends');
     TrendTime = new Meteor.Collection('trendtime');
     StreamTw = new Meteor.Collection('streamTwit');
+
+    StreamTw._ensureIndex({
+    "twit": "text",
+    "Tag": "text"
+    });
+    
     // Publish all trend data for client availability
     Meteor.publish('current-trends', function() {
         return Trends.find();
@@ -27,9 +33,20 @@ Meteor.startup(function() {
         return TrendTime.find();
     });
     Meteor.publish('stream-tweet', function(){
-        return Stream.find();
+        return StreamTw.find();
     });
+
     getTrends();
     // Refresh trends every 5 mins as that's as often as they change
     Meteor.setInterval(getTrends, 300000);
+
+    // Meteor.publish('search', function(searchvalue) {
+    //     check(searchvalue, String);
+    //     console.log(searchvalue);
+    //     console.log("------------------------------------");
+    //     // new SimpleSchema({
+    //     //     searchvalue: {type: String}
+    //     //   }).validate({ searchvalue })
+    //     return StreamTw.find({ $text: {$search: searchvalue} }).fetch();
+    // })
 });

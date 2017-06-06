@@ -1,0 +1,12 @@
+{
+	"version": "4.2.0",
+	"base": "js/highcharts.js",
+	"adapter": "default",
+	"modules": [
+		"js/highcharts-3d.src.js",
+		"js/modules/exporting.js",
+		"js/modules/heatmap.js",
+		"js/modules/drilldown.js",
+		"js/themes/gray.js"
+	]
+}

@@ -32,9 +32,9 @@ getTrends = function() {
             'trends/place', { id: '23424863', exclude: 'hashtags' },
             Meteor.bindEnvironment(function(err, trend_data, response) {
                 Trends.remove({}); // remove old trends, we only care about fresh
+                //StreamTw.remove({}); 
                 // Update the time last inserted
                 TrendTime.remove({});
-                StreamTw.remove({});
                 TrendTime.insert({ last_insert_stamp: Date.parse(trend_data[0].as_of) });
                 console.log('INSERTED: ' + trend_data[0].as_of);
                 // Find tweets about the trend for further (sentiment) analysis
@@ -55,20 +55,21 @@ getTrends = function() {
 }();
 streamTweets = function(nameit) {
     return function() {
-        console.log(nameit);
+        //console.log(nameit);
         console.log('Streaming Tweet...');
           //stream the world for tweets containing kenyan political persons
         Twit.stream('statuses/filter', { track: '#'+nameit }).on(
             'tweet', Meteor.bindEnvironment(function (tweet) {
                     //remove previous stream twits
-                    console.log(tweet.text);
-                    console.log(tweet.user.location);
-                    console.log(tweet.user.screen_name);
-                    console.log(tweet.entities.hashtags);
-                    console.log('----------------------------')
+                    // console.log(tweet.text);
+                    // console.log(tweet.user.location);
+                    // console.log(tweet.user.screen_name);
+                    // console.log(tweet.entities.hashtags.text);
+                    // console.log('----------------------------')
                     StreamTw.insert({twit: tweet.text,
                                     location: tweet.user.location,
-                                    Name: tweet.user.screen_name});
+                                    Name: tweet.user.screen_name,
+                                    Tag: tweet.entities.hashtags});
                 }));
     }
 };

@@ -5,7 +5,7 @@ Meteor.methods({
   trends: function() {
     // Check how old the trends are to ensure we never pull too often
     var trend_time = TrendTime.findOne();
-    var trend_age = 300000;  // if trends undefined will set older age
+    var trend_age = 400000;  // if trends undefined will set older age
     if (typeof trend_time !== 'undefined') {
       trend_age = Date.now() - trend_time.last_insert_stamp;
     }
@@ -13,5 +13,17 @@ Meteor.methods({
     if (trend_age >= 300000) {
       getTrends();  // see twitter.js
     }
-  }
+  },
+  search: function(searchvalue) {
+        check(searchvalue, String);
+        console.log("------------------------------------");
+        console.log(searchvalue);
+        var searchcount = StreamTw.find({ $text: {$search: searchvalue} }).count();
+        console.log(searchcount);
+        // new SimpleSchema({
+        //     searchvalue: {type: String}
+        //   }).validate({ searchvalue })
+
+        return searchcount;
+     }
 });

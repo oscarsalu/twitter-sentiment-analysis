@@ -20,3 +20,4 @@ Template.trending.helpers({
     }
   }
 });
+
