@@ -16,10 +16,10 @@ Meteor.methods({
   },
   search: function(searchvalue) {
         check(searchvalue, String);
-        console.log("------------------------------------");
-        console.log(searchvalue);
+        //console.log("------------------------------------");
+        //console.log(searchvalue);
         var searchcount = StreamTw.find({ $text: {$search: searchvalue} }).count();
-        console.log(searchcount);
+        //console.log(searchcount);
         // new SimpleSchema({
         //     searchvalue: {type: String}
         //   }).validate({ searchvalue })

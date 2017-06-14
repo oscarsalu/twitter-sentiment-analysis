@@ -40,13 +40,14 @@ Meteor.startup(function() {
     // Refresh trends every 5 mins as that's as often as they change
     Meteor.setInterval(getTrends, 300000);
 
-    // Meteor.publish('search', function(searchvalue) {
-    //     check(searchvalue, String);
-    //     console.log(searchvalue);
-    //     console.log("------------------------------------");
-    //     // new SimpleSchema({
-    //     //     searchvalue: {type: String}
-    //     //   }).validate({ searchvalue })
-    //     return StreamTw.find({ $text: {$search: searchvalue} }).fetch();
-    // })
+    Meteor.publish('search', function(searchvalue) {
+        check(searchvalue, String);
+        console.log(searchvalue);
+        console.log(StreamTw.find({ $text: {$search: searchvalue} }).count());
+        console.log("------------------------------------");
+        // new SimpleSchema({
+        //     searchvalue: {type: String}
+        //   }).validate({ searchvalue })
+        return StreamTw.find({ $text: {$search: searchvalue} });
+    })
 });

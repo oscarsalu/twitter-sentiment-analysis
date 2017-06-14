@@ -61,7 +61,7 @@ streamTweets = function(nameit) {
         Twit.stream('statuses/filter', { track: '#'+nameit }).on(
             'tweet', Meteor.bindEnvironment(function (tweet) {
                     //remove previous stream twits
-                    // console.log(tweet.text);
+                     console.log(tweet);
                     // console.log(tweet.user.location);
                     // console.log(tweet.user.screen_name);
                     // console.log(tweet.entities.hashtags.text);
